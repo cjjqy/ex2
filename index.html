@@ -10,7 +10,7 @@
 			html,body{height:100%;}
 			body{				
 				display:flex;
-				flex-direction: column;	
+				flex-direction: column;
 			}
 			body>* {	
 				width:100%;			
@@ -26,6 +26,7 @@
 				position: fixed;  
 				top: 100px; 
 				position: relative;
+				top: auto;
 			}
 			.img1{
 				position: absolute;
@@ -50,49 +51,77 @@
 			    left: -850px;
 				transform: scale(0.35);
 				opacity: 100%;
-				animation: fadeInOut 6s infinite; 
-				z-index: 1;
+				animation: fadeInOut 6s infinite;
+				z-index: 2; 
 			}
 			@keyframes fadeInOut {
 			    0%, 100% {
-			        opacity: 0; /* 透明度为0，完全透明 */
+			        opacity: 0;
 			    }
 			    50% {
-			        opacity: 1; /* 透明度为1，完全不透明 */
+			        opacity: 1;
 			    }
 			}
 			.image-container img:nth-child(2) {
-			    animation-delay: 5s; /* 第二张图片动画延迟0.5秒 */
+			    animation-delay: 5s; 
 			}
-			 
 			.image-container img:nth-child(3) {
-			    animation-delay: 8s; /* 第三张图片动画延迟1秒 */
+			    animation-delay: 8s; 
 			}
 			.image-container img:nth-child(5) {
-			     animation-delay: 15s; /* 第三张图片动画延迟1秒 */
+			     animation-delay: 15s;
 			}
 			.image-container img:nth-child(9) {
-			    animation-delay: 21s; /* 第三张图片动画延迟1秒 */
+			    animation-delay: 21s; 
 			}
 			.image-container img:nth-child(15) {
-			    animation-delay: 25s; /* 第三张图片动画延迟1秒 */
+			    animation-delay: 25s; 
 			}
 			.image-container img:nth-child(23) {
-			    animation-delay: 36s; /* 第三张图片动画延迟1秒 */
+			    animation-delay: 36s; 
 			}
 			.image-container img:nth-child(32) {
-			    animation-delay: 32s; /* 第三张图片动画延迟1秒 */
+			    animation-delay: 32s; 
 			}.image-container img:nth-child(40) {
-			    animation-delay: 23s; /* 第三张图片动画延迟1秒 */
+			    animation-delay: 23s; 
 			}
 			.image-container img:nth-child(47) {
-			    animation-delay: 16s; /* 第三张图片动画延迟1秒 */
+			    animation-delay: 16s; 
 			}
-		</style> 
+			.fade-out-container {
+			    position: relative; /* 必须设置为相对定位，以便伪元素能够正确定位 */
+			    width: 300px; /* 示例宽度 */
+			    height: 200px; /* 示例高度 */
+			    overflow: hidden; /* 防止内容溢出 */
+			}
+			 
+			.fade-out-container::before {
+			    content: "";
+			    position: absolute;
+			    top: 0;
+			    left: 0;
+			    right: 0;
+			    bottom: 0;
+			    background-image: url('img/background 1.jpg');
+			    background-size: cover; /* 根据需要调整背景图片的大小 */
+			    background-position: center; /* 根据需要调整背景图片的位置 */
+			    opacity: 1; /* 初始透明度 */
+			    animation: fadeOut 2s forwards; /* 应用动画 */
+			    z-index: -1; /* 确保伪元素位于内容之后 */
+			}
+			 .fade-out {
+			    animation: fadeOut 40s forwards;
+			}
+			 
+			@keyframes fadeOut {
+			    0% { opacity: 1; }
+			    100% { opacity: 0; }
+			}
+		</style>
 	</head>
-	<body>
+	<body class="fade-out">
 	<div class="container" style="display: flex; justify-content: center; align-items: center; text-align: center;">
-		<a href="https://zzwwhh128.github.io/puyuanfengmian/" ><img src="img/pu 1.png" alt="Sample Image" class="positioned-image">
+		<a href="https://zzwwhh128.github.io/puyuanfengmian/"><img src="img/pu 1.png" alt="Sample Image" class="positioned-image">
 		<img src="img/gu1.png" alt="Sample Image" class="positioned-image">
 		<img src="img/chen 1.png" alt="Sample Image" class="positioned-image">
 		<img src="img/yan 1.png" alt="Sample Image" class="positioned-image">
@@ -159,7 +188,19 @@
 		<img src="img/。8.png" alt="Sample Image" class="positioned-image"></a>
 		<img class="img1" src="img/background 1.jpg"/>
 	</div>
-	
+	<script type="text/javascript">
+	        document.addEventListener('DOMContentLoaded', function () {
+	            var link = document.querySelector('a');
+	            link.addEventListener('click', function (event) {
+	                    event.preventDefault(); // 阻止默认链接跳转
+	                    document.body.classList.add('fade-out');
+	                    document.querySelector('body').addEventListener('animationend', function () {
+	                            window.location.href = link.href; // 执行跳转
+	                    }, { once: true });
+	                });
+	            });
+	        });
+	    </script>
 	</body>
 
 </html>
